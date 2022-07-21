@@ -1,16 +1,69 @@
+import React from 'react';
 import FooterFlashCards from "./FooterFlashCards";
 import HeaderFlashCards from "./HeaderFlashCards"
 
-function FlashCardsQuestions(props) {
+function FlashCardSwitch({ index, question, answer, answered, setAnswered }) {
+    const [cardState, setCardState] = React.useState('start');
+    const [icon, setIcon] = React.useState('');
+
+    if (cardState === 'start') {
+        return <NumberedQuestions index={index} setCardState={setCardState} />
+    } else if (cardState === 'question') {
+        return <FlashCardsQuestions setCardState={setCardState} question={question} />
+    } else if (cardState === 'answer') {
+        return <FlashCardsAnswers answer={answer} setCardState={setCardState} setAnswered={setAnswered} setIcon={setIcon}/>
+    } else if (cardState === 'answered') {
+        return <FlashCardsAnswered index={index} answered={answered} icon={icon} />
+    }
+}
+
+function NumberedQuestions({ index, setCardState }) {
     return (
-        <div className="flashCardsQuestions">
-            <p>{props.index} {props.question}</p>
+        <div className="flashCardsQuestions" onClick={() => { setCardState('question') }}>
+            <p>Pergunta {index}</p>
             <ion-icon name="play-outline"></ion-icon>
         </div>
     );
 }
 
+function FlashCardsQuestions({ question, setCardState }) {
+    return (
+        <div className="flashCardsQuestions" onClick={() => { setCardState('answer') }}>
+            <p>{question}</p>
+            {/* AQUI TEM O ÍCONE DE FLIP */}
+        </div>
+    );
+}
+
+function FlashCardsAnswers({ answer, setCardState, setAnswered, setIcon}) {
+    return (
+        <div className="flashCardsQuestions">
+            <p>{answer}</p>
+            <div className='answerIcons'>
+                <div className='naoLembrei' onClick={() => {setCardState('answered'); setAnswered('wrong'); setIcon('close-circle')}}>Não lembrei</div>
+                <div className='quaseLembrei' onClick={() => {setCardState('answered'); setAnswered('almost'); setIcon('help-circle')}}>Quase não lembrei</div>
+                <div className='zap' onClick={() => {setCardState('answered'); setAnswered('right'); setIcon('checkmark-circle')}}>Zap!</div>
+            </div>
+        </div>
+    );
+}
+
+function FlashCardsAnswered({index, answered, icon}) {
+    return (
+        <div className="flashCardsQuestions">
+            <p>Pergunta {index}</p>
+            <ion-icon name={icon}></ion-icon>
+        </div>
+    );
+}
+
+function Console(answer) {
+    console.log(answer);
+}
+
 export default function Screen2FlashCards() {
+    const [answered, setAnswered] = React.useState('');
+    const [count, setCount] = React.useState(0);
     const questions = [
         {
             question: "O que é JSX?",
@@ -27,7 +80,7 @@ export default function Screen2FlashCards() {
         {
             question: "Podemos colocar __ dentro do JSX",
             answer: "expressões"
-        },
+        }/* ,
         {
             question: "O ReactDOM nos ajuda __",
             answer: "interagindo com a DOM para colocar componentes React na mesmaexpressões"
@@ -43,7 +96,7 @@ export default function Screen2FlashCards() {
         {
             question: "Usamos estado (state) para __",
             answer: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente"
-        }
+        } */
     ];
 
     /* let randomize = {...questions};
@@ -54,9 +107,9 @@ export default function Screen2FlashCards() {
         <div className="mobile mobileFlashCards">
             <HeaderFlashCards />
 
-            {questions.map((question, index) =>(<FlashCardsQuestions key={index} question={question.question} answer={question.answer} />))}
+            {questions.map((question, index) => (<FlashCardSwitch key={index} index={index + 1} question={question.question} answer={question.answer} answered={answered} setAnswered={setAnswered} />))}
 
-            <FooterFlashCards />
+            <FooterFlashCards answered={answered} count={count} setCount={setCount} />
         </div>
     );
 }

@@ -1,15 +1,6 @@
 import ReactDOM from 'react-dom';
-import Screen1Welcome from './Components/Screen1Welcome';
-import Screen2FlashCards from './Components/Screen2FlashCards';
+import App from './Components/App';
 
-function App() {
-    return (
-        <div className="page">
-           {/* <Screen1Welcome /> */}
-           <Screen2FlashCards />
-        </div>
-    );
-}
 
-const app = App();
+//const app = App();
 ReactDOM.render(<App />, document.querySelector(".root"));
