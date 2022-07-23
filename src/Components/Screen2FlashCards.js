@@ -2,7 +2,7 @@ import React from 'react';
 import FooterFlashCards from "./FooterFlashCards";
 import HeaderFlashCards from "./HeaderFlashCards"
 
-function FlashCardSwitch({ index, question, answer, answered, setAnswered, count, setCount, footerIcons, setFooterIcons }) {
+function FlashCardSwitch({ index, question, answer, answered, setAnswered, count, setCount, footerIcons, setFooterIcons, setFlag }) {
     const [cardState, setCardState] = React.useState('start');
     const [icon, setIcon] = React.useState('');
 
@@ -11,7 +11,7 @@ function FlashCardSwitch({ index, question, answer, answered, setAnswered, count
     } else if (cardState === 'question') {
         return <FlashCardsQuestions setCardState={setCardState} question={question} />
     } else if (cardState === 'answer') {
-        return <FlashCardsAnswers answer={answer} setCardState={setCardState} setAnswered={setAnswered} setIcon={setIcon} count={count} setCount={setCount} footerIcons={footerIcons} setFooterIcons={setFooterIcons} />
+        return <FlashCardsAnswers answer={answer} setCardState={setCardState} setAnswered={setAnswered} setIcon={setIcon} count={count} setCount={setCount} footerIcons={footerIcons} setFooterIcons={setFooterIcons} setFlag={setFlag} />
     } else if (cardState === 'answered') {
         return <FlashCardsAnswered index={index} answered={answered} icon={icon}  />
     }
@@ -35,12 +35,12 @@ function FlashCardsQuestions({ question, setCardState }) {
     );
 }
 
-function FlashCardsAnswers({ answer, setCardState, setAnswered, setIcon, count, setCount, footerIcons, setFooterIcons}) {
+function FlashCardsAnswers({ answer, setCardState, setAnswered, setIcon, count, setCount, footerIcons, setFooterIcons, setFlag}) {
     return (
         <div className="flashCardsQuestions">
             <p>{answer}</p>
             <div className='answerIcons'>
-                <div className='naoLembrei' onClick={() => {setCardState('answered'); setAnswered('wrong'); setIcon('close-circle'); setCount(count + 1); setFooterIcons([...footerIcons, <ion-icon class="wrong md hydrated" name='close-circle'></ion-icon>])}}>Não lembrei</div>
+                <div className='naoLembrei' onClick={() => {setCardState('answered'); setAnswered('wrong'); setIcon('close-circle'); setCount(count + 1); setFooterIcons([...footerIcons, <ion-icon class="wrong md hydrated" name='close-circle'></ion-icon>]); setFlag(1)}}>Não lembrei</div>
                 <div className='quaseLembrei' onClick={() => {setCardState('answered'); setAnswered('almost'); setIcon('help-circle'); setCount(count + 1); setFooterIcons([...footerIcons, <ion-icon class="almost md hydrated" name='help-circle'></ion-icon>])}}>Quase não lembrei</div>
                 <div className='zap' onClick={() => {setCardState('answered'); setAnswered('right'); setIcon('checkmark-circle'); setCount(count + 1); setFooterIcons([...footerIcons, <ion-icon class="right md hydrated" name='checkmark-circle'></ion-icon>])}}>Zap!</div>
             </div>
@@ -73,6 +73,7 @@ function Console(answer) {
 export default function Screen2FlashCards() {
     const [answered, setAnswered] = React.useState('');
     const [count, setCount] = React.useState(0);
+    const [flag, setFlag] = React.useState(0);
     const [footerIcons, setFooterIcons] = React.useState([]);
     const questions = [
         {
@@ -117,8 +118,8 @@ export default function Screen2FlashCards() {
         <><div className="mobile mobileFlashCards">
             <HeaderFlashCards />
 
-            {questions.map((question, index) => (<FlashCardSwitch key={index} index={index + 1} question={question.question} answer={question.answer} answered={answered} setAnswered={setAnswered} count={count} setCount={setCount} footerIcons={footerIcons} setFooterIcons={setFooterIcons} />))}
+            {questions.map((question, index) => (<FlashCardSwitch key={index} index={index + 1} question={question.question} answer={question.answer} answered={answered} setAnswered={setAnswered} count={count} setCount={setCount} footerIcons={footerIcons} setFooterIcons={setFooterIcons} flag={flag} setFlag={setFlag} />))}
         </div>
-        <FooterFlashCards answered={answered} count={count} footerIcons={footerIcons} /></>
+        <FooterFlashCards answered={answered} count={count} footerIcons={footerIcons} flag={flag} /></>
     );
 }

@@ -1,18 +1,18 @@
 import React from 'react';
 
-export default function FooterFlashCards({ count, footerIcons}) {
-    const [text, setText] = React.useState('');
+export default function FooterFlashCards({ count, footerIcons, flag}) {
+    let text = '';
     if (count === 8) {
-        if (footerIcons === <ion-icon class="wrong md hydrated" name='close-circle'></ion-icon>) {
-            setText(text = <div className="">
+        if (flag > 0) {
+            text = <div className="">
             <p>😥 Putz!</p>
             <p>Ainda faltam alguns...<br /> Mas não desanime!!</p>
-            </div>);
+            </div>
         } else {
-            setText(text = <div className="">
+            text = <div className="">
             <p>🥳 Parabéns!</p>
             <p>Você não esqueceu de nenhum flashcard!</p>
-            </div>);
+            </div>
         }
     }
 
