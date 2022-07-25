@@ -1,6 +1,7 @@
 import React from 'react';
 import FooterFlashCards from "./FooterFlashCards";
-import HeaderFlashCards from "./HeaderFlashCards"
+import HeaderFlashCards from "./HeaderFlashCards";
+import vector from "../Assets/Images/Vector.png"
 
 function FlashCardSwitch({ index, question, answer, answered, setAnswered, count, setCount, footerIcons, setFooterIcons, setFlag }) {
     const [cardState, setCardState] = React.useState('start');
@@ -19,7 +20,7 @@ function FlashCardSwitch({ index, question, answer, answered, setAnswered, count
 
 function NumberedQuestions({ index, setCardState }) {
     return (
-        <div className="flashCardsQuestions" onClick={() => { setCardState('question') }}>
+        <div className="flashCardsNumberedQuestions" onClick={() => { setCardState('question') }}>
             <p>Pergunta {index}</p>
             <ion-icon name="play-outline"></ion-icon>
         </div>
@@ -28,16 +29,16 @@ function NumberedQuestions({ index, setCardState }) {
 
 function FlashCardsQuestions({ question, setCardState }) {
     return (
-        <div className="flashCardsQuestions" onClick={() => { setCardState('answer') }}>
+        <div className="flashCardsQuestions" >
             <p>{question}</p>
-            {/* AQUI TEM O ÍCONE DE FLIP */}
+            <img src={vector} onClick={() => { setCardState('answer') }} />
         </div>
     );
 }
 
 function FlashCardsAnswers({ answer, setCardState, setAnswered, setIcon, count, setCount, footerIcons, setFooterIcons, setFlag}) {
     return (
-        <div className="flashCardsQuestions">
+        <div className="flashCardsAnswers">
             <p>{answer}</p>
             <div className='answerIcons'>
                 <div className='naoLembrei' onClick={() => {setCardState('answered'); setAnswered('wrong'); setIcon('close-circle'); setCount(count + 1); setFooterIcons([...footerIcons, <ion-icon class="wrong md hydrated" name='close-circle'></ion-icon>]); setFlag(1)}}>Não lembrei</div>
@@ -58,7 +59,7 @@ function FlashCardsAnswered({index, answered, icon}) {
         a = <div className='right'><ion-icon name='checkmark-circle'></ion-icon></div>;
     }
     return (
-        <div className="flashCardsQuestions">
+        <div className="flashCardsAnswered">
             <div className={icon} ><p>Pergunta {index}</p>
             {a}
             </div>

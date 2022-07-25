@@ -24,7 +24,7 @@ body {
     width: 375px; */
     height: 100vh;
     width: 100vh;
-    margin-bottom: 100px;
+    margin-bottom: 120px;
     overflow-y: scroll;
     display: flex;
     justify-content: center;
@@ -111,7 +111,53 @@ body {
     z-index: 1;
 }
 
-.mobileFlashCards .flashCardsQuestions {
+.flashCardsNumberedQuestions {
+    display: flex;
+    justify-content: space-between;
+    width: 299px;
+    height: 131px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    margin: 60px 0px 0px 0px;
+    padding: 12px;
+
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: #333333;
+}
+
+.flashCardsQuestions {
+    display: flex;
+    flex-direction: column;
+    width: 299px;
+    height: 1310px;
+    background: #FFFFD5;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    margin: 60px 0px 0px 0px;
+    padding: 12px;
+}
+
+.flashCardsQuestions p {
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #333333;
+}
+
+.flashCardsQuestions img {
+    width: 30px;
+    height: 20px;
+    margin: 12px 0px 2px 240px;
+}
+
+.mobileFlashCards .flashCardsAnswers {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -132,6 +178,74 @@ body {
     font-size: 16px;
     line-height: 19px;
     color: #333333;
+}
+
+.flashCardsAnswered {
+    width: 299px;
+    height: 131px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    margin: 60px 0px 0px 0px;
+    padding: 12px;
+
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: #333333;
+}
+
+.close-circle {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    text-decoration-line: line-through;
+    color: #FF3030;
+}
+
+.close-circle ion-icon {
+    width: 23px;
+    height: 23px;
+}
+
+.help-circle {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    text-decoration-line: line-through;
+    color: #FF922E;
+}
+
+.help-circle ion-icon {
+    width: 23px;
+    height: 23px;
+}
+
+.checkmark-circle {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    text-decoration-line: line-through;
+    color: #2FBE34;
+}
+
+.checkmark-circle ion-icon {
+    width: 23px;
+    height: 23px;
 }
 
 .mobileFlashCards .flashCardsQuestions ion-icon {
